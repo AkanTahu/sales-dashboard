@@ -1,23 +1,24 @@
-const admin = require("firebase-admin");
-const serviceAccount = require("./serviceAccountKey.json");
-const data = require("/src/data/product.json");
+import firebaseAdmin from "firebase-admin";
+import serviceAccount from "./serviceAccountKey.json" assert { type: "json" };
+import products from "./src/data/product.json" assert { type: "json" };
+import suppliers from "./src/data/supplier.json" assert { type: "json" };
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+firebaseAdmin.initializeApp({
+  credential: firebaseAdmin.credential.cert(serviceAccount),
 });
 
-const db = admin.firestore();
+const db = firebaseAdmin.firestore();
 
 async function importData() {
   const collectionProducts = db.collection("products");
   const collectionSuppliers = db.collection("suppliers");
-  
-  for (const product of data) {
+
+  for (const product of products) {
     await collectionProducts.add(product);
     console.log("Added:", product.name);
   }
 
-  for (const supplier of data) {
+  for (const supplier of suppliers) {
     await collectionSuppliers.add(supplier);
     console.log("Added:", supplier.name);
   }
