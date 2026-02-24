@@ -16,4 +16,33 @@ async function createSupplier() {
   }
 }
 
-createSupplier();
+async function createOrder() {
+  try {
+    const docRef = await addDoc(collection(db, "orders"), {
+      supplierId: "supplier123",
+      supplierName: "PT Sumber Makmur",
+      userId: "user456",
+      nameUserId: "John Doe",
+      orderDate: serverTimestamp(),
+      totalAmount: 1000000,
+      salesBy: "John Sales",
+      createdAt: serverTimestamp(),
+      items : 
+      [
+        {
+          productId: "product123",
+          productName: "Laptop",
+          qty: 2,
+          price: 500000
+        }
+      ]
+    });
+
+    console.log("Order berhasil dibuat dengan ID:", docRef.id);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+createOrder();
+// createSupplier();
