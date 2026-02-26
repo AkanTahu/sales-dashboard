@@ -6,25 +6,25 @@ import DataPicker from "@/components/DataPickerWithRange"
 export default function Dashboard() {
   const metrics = [
     {
-      title: "Total Revenue this month",
+      title: "Total Revenue",
       value: "Rp 12.500.000",
       description: "Trending this month",
       trend: "+12.5%"
     },
     {
-      title: "Total Revenue previous month",
+      title: "Total Revenue [previous month]",
       value: "123",
       description: "Down this period",
       trend: "-20%"
     },
     {
-      title: "Active Accounts",
+      title: "Top Supplier [previous month]",
       value: "456",
       description: "Strong retention",
       trend: "+5%"
     },
     {
-      title: "Growth Rate",
+      title: "Top Product",
       value: "4.5%",
       description: "Stable performance",
       trend: "+1.2%"

@@ -19,8 +19,7 @@ export default function DataPickerWithRange() {
   })
 
   return (
-    <Field className="mx-auto w-60">
-      <FieldLabel htmlFor="date-picker-range">Date Picker Range</FieldLabel>
+    <Field className="pt-4 mx-auto w-60">
       <Popover>
         <PopoverTrigger asChild>
           <Button
