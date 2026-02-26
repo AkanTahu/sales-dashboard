@@ -2,6 +2,7 @@ import MetricCard from "@/components/MetricCard"
 import Sidebar from "@/components/Sidebar"
 import Header from "@/components/Header"
 import DataPicker from "@/components/DataPickerWithRange"
+import Chart from "@/components/Chart"
 
 export default function Dashboard() {
   const metrics = [
@@ -19,13 +20,13 @@ export default function Dashboard() {
     },
     {
       title: "Top Supplier [previous month]",
-      value: "456",
+      value: "Tk. Sumber Makmur",
       description: "Strong retention",
       trend: "+5%"
     },
     {
       title: "Top Product",
-      value: "4.5%",
+      value: "Kerok Blewah",
       description: "Stable performance",
       trend: "+1.2%"
     }

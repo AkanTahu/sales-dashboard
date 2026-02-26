@@ -1,5 +1,5 @@
 import { collection, query, where, getDocs } from "firebase/firestore"
-import { db } from "../firebase.js"
+import { db } from "../src/services/firebase.js"
 
 export const getThisMonthTotal = async () => {
   const now = new Date()
