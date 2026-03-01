@@ -2,9 +2,10 @@ import MetricCard from "@/components/MetricCard"
 import Sidebar from "@/components/Sidebar"
 import Header from "@/components/Header"
 import DataPicker from "@/components/DataPickerWithRange"
-import Chart from "@/components/Chart"
+import Chart from "@/components/ChartAreaLinear"
+import BarChart from "@/components/ChartBarLabelCustom"
 
-export default function Dashboard() {
+export default function Dashboard({ onNavigate }) {
   const metrics = [
     {
       title: "Total Revenue",
@@ -34,13 +35,10 @@ export default function Dashboard() {
 
   return (
     <div className="flex bg-gray-100">
-      <Sidebar />
-
+      <Sidebar onNavigate={onNavigate} />
       <div className="flex-1">
         <Header />
-
         <DataPicker />
-
         <div className="p-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {metrics.map((metric, index) => (
             <MetricCard
@@ -51,6 +49,11 @@ export default function Dashboard() {
               trend={metric.trend}
             />
           ))}
+        </div>
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 p-6">
+          <Chart />
+          <BarChart />
+          <BarChart />
         </div>
       </div>
     </div>

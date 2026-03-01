@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getLastUpdate } from "@/services/serviceOrders";
 
-export default function Sidebar() {
+export default function Sidebar({ onNavigate }) {
   const [lastUpdate, setLastUpdate] = useState(null);
 
   useEffect(() => {
@@ -15,8 +15,16 @@ export default function Sidebar() {
       <h1 className="text-xl font-bold">Gudang Grosiran Samarinda</h1>
 
       <nav className="space-y-4 text-sm">
-        <p className="font-semibold">Dashboard</p>
-        <p className="text-muted-foreground hover:text-black cursor-pointer">
+        <p
+          className="font-semibold cursor-pointer"
+          onClick={() => onNavigate && onNavigate("dashboard")}
+        >
+          Dashboard
+        </p>
+        <p
+          className="text-muted-foreground hover:text-black cursor-pointer"
+          onClick={() => onNavigate && onNavigate("supplier")}
+        >
           Supplier
         </p>
         <p className="text-muted-foreground hover:text-black cursor-pointer">
