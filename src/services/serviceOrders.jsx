@@ -29,7 +29,7 @@ export async function getLastUpdate() {
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
 
-export async function getSupplierSalesData() {
+export async function getSupplierSalesData(dateFrom, dateTo) {
   try {
     const q = query(collection(db, "orders"));
     const snap = await getDocs(q);
@@ -39,7 +39,21 @@ export async function getSupplierSalesData() {
     
     snap.docs.forEach(doc => {
       const data = doc.data();
-      const { supplierId, supplierName, totalAmount } = data;
+      const { supplierId, supplierName, totalAmount, orderDate } = data;
+      
+      // Filter by date range if provided
+      if (dateFrom && dateTo && orderDate) {
+        const orderDateObj = new Date(orderDate);
+        const fromDate = new Date(dateFrom);
+        const toDate = new Date(dateTo);
+        
+        // Set time to end of day for toDate to include the entire day
+        toDate.setHours(23, 59, 59, 999);
+        
+        if (orderDateObj < fromDate || orderDateObj > toDate) {
+          return; // Skip orders outside date range
+        }
+      }
       
       if (supplierId && supplierName) {
         if (supplierMap.has(supplierId)) {

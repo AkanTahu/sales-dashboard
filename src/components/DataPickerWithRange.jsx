@@ -12,11 +12,20 @@ import {
 import { addDays, format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 
-export default function DataPickerWithRange() {
-  const [date, setDate] = React.useState({
-    from: new Date(new Date().getFullYear(), 0, 20),
-    to: addDays(new Date(new Date().getFullYear(), 0, 20), 20),
-  })
+export default function DataPickerWithRange({ value, onDateChange }) {
+  const [date, setDate] = React.useState(
+    value || {
+      from: new Date(new Date().getFullYear(), 0, 20),
+      to: addDays(new Date(new Date().getFullYear(), 0, 20), 20),
+    }
+  );
+
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+    if (onDateChange) {
+      onDateChange(newDate);
+    }
+  };
 
   return (
     <Field className="pt-4 mx-auto w-60">
@@ -47,7 +56,7 @@ export default function DataPickerWithRange() {
             mode="range"
             defaultMonth={date?.from}
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateChange}
             numberOfMonths={2}
           />
         </PopoverContent>
