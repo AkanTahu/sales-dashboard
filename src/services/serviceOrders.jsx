@@ -28,4 +28,37 @@ export async function getLastUpdate() {
   const snap = await getDocs(q);
   return snap.docs.map(d => ({ id: d.id, ...d.data() }));
 }
-// ...existing code...
+
+export async function getSupplierSalesData() {
+  try {
+    const q = query(collection(db, "orders"));
+    const snap = await getDocs(q);
+    
+    // Aggregate sales by supplier
+    const supplierMap = new Map();
+    
+    snap.docs.forEach(doc => {
+      const data = doc.data();
+      const { supplierId, supplierName, totalAmount } = data;
+      
+      if (supplierId && supplierName) {
+        if (supplierMap.has(supplierId)) {
+          const existing = supplierMap.get(supplierId);
+          existing.totalSales += totalAmount || 0;
+        } else {
+          supplierMap.set(supplierId, {
+            supplierId,
+            supplierName,
+            totalSales: totalAmount || 0
+          });
+        }
+      }
+    });
+    
+    // Convert map to array and sort by totalSales descending
+    return Array.from(supplierMap.values()).sort((a, b) => b.totalSales - a.totalSales);
+  } catch (error) {
+    console.error("Error fetching supplier sales data:", error);
+    return [];
+  }
+}
